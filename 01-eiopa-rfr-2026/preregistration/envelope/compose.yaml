@@ -1,0 +1,89 @@
+# The envelope — replicability test 01 · spec DRAFT v0.8 (SPEC.md).
+# One run, one project, two phases: run.sh writes the run's folder and its run.env, then, EGRESS_PHASE exported —
+#   signin: docker compose -p rt01-<run> -f compose.yaml --env-file <run>/run.env up -d --wait egress, then run --rm --no-deps builder signin
+#   run:    docker compose -p rt01-<run> -f compose.yaml --env-file <run>/run.env up --abort-on-container-exit --exit-code-from builder
+# No credential is written here or in run.env: the plan's tokens and builder B's key are held by the egress in <run>/vault,
+# mounted into it alone; builder B's run has no sign-in phase, its key typed at run.sh's prompt (SPEC §3b).
+networks:
+  inner:
+    internal: true            # no route beyond this network: the builder's only way out is the egress
+  outer: {}
+
+services:
+  egress:
+    image: ${EGRESS_IMAGE}    # the mitmproxy project's image, pinned by digest at the build
+    command:
+      - mitmdump
+      - --mode=regular
+      - --listen-host=0.0.0.0
+      - --listen-port=8080
+      - --set=confdir=/ca
+      - --set=connection_strategy=lazy
+      - --set=block_global=false
+      - --set=termlog_verbosity=warn
+      - --set=flow_detail=0
+      - -s
+      - /addon/allowlist.py
+    environment:
+      EGRESS_ROUTE: ${EGRESS_ROUTE}      # chatgpt (builder A) or gemini-api (builder B)
+      EGRESS_PHASE: ${EGRESS_PHASE}      # signin or run, exported by run.sh for each phase
+      EGRESS_MODELS: ${EGRESS_MODELS}
+      EGRESS_SPEND_CAP_USD: ${EGRESS_SPEND_CAP_USD}   # builder B's spend cap, US dollars a run (SPEC §3b); empty for builder A
+      EGRESS_LOG_DIR: /egress
+      EGRESS_VAULT: /vault
+    volumes:
+      - ${RUN_DIR}/ca:/ca
+      - ${RUN_DIR}/egress:/egress
+      - ${RUN_DIR}/vault:/vault              # the plan's real tokens, builder B's key: the egress's alone
+      - ${ENVELOPE_DIR}/egress/allowlist.py:/addon/allowlist.py:ro
+    networks: [inner, outer]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import os, socket; os.stat('/egress/addon-ready-${EGRESS_PHASE}.json'); socket.create_connection(('127.0.0.1', 8080), 2)"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  builder:
+    image: ${BUILDER_IMAGE_ID}   # built once from builder.Dockerfile, run by its id
+    depends_on:
+      egress:
+        condition: service_healthy
+    networks: [inner]
+    user: "1000:1000"
+    read_only: true
+    tmpfs:
+      - /tmp:size=4g,mode=1777
+    working_dir: /work
+    entrypoint: ["/bin/bash", "/envelope/entry.sh"]
+    env_file:
+      - ${RUN_DIR}/builder.env           # builder B: GEMINI_API_KEY, the key's stand-in; builder A: empty (SPEC §3b)
+    environment:
+      BUILDER: ${BUILDER}                  # A or B
+      RUN_ID: ${RUN_ID}
+      RUN_KIND: ${RUN_KIND}                # run, dry or test
+      TIME_LIMIT: ${TIME_LIMIT}            # 5h; the dry run 15m
+      BUILDER_IMAGE_ID: ${BUILDER_IMAGE_ID}
+      EGRESS_ROUTE: ${EGRESS_ROUTE}
+      EGRESS_MODELS: ${EGRESS_MODELS}
+      MODEL: ${MODEL}
+      EGRESS_SPEND_CAP_USD: ${EGRESS_SPEND_CAP_USD}   # named in the launch print
+      HTTPS_PROXY: http://egress:8080
+      HTTP_PROXY: http://egress:8080
+      https_proxy: http://egress:8080
+      http_proxy: http://egress:8080
+      NO_PROXY: ""
+      no_proxy: ""
+      HOME: /state/home
+      CODEX_HOME: /state/codex
+      SSL_CERT_FILE: /state/ca-bundle.pem
+      NODE_EXTRA_CA_CERTS: /ca/mitmproxy-ca-cert.pem
+      CODEX_CA_CERTIFICATE: /ca/mitmproxy-ca-cert.pem  # builder A's CLI reads its extra CA here (SPEC §4)
+    volumes:
+      - ${RUN_DIR}/in:/in:ro
+      - ${RUN_DIR}/work:/work
+      - ${RUN_DIR}/logs:/logs
+      - ${RUN_DIR}/state:/state
+      - ${RUN_DIR}/ca-public:/ca:ro
+      - ${ENVELOPE_DIR}/entry.sh:/envelope/entry.sh:ro
+      - ${CONFIG_FILE}:${CONFIG_TARGET}:ro
+      - ${CONFIG_DIR}:/envelope/config:ro  # the configuration's folder — builder A's model catalog, builder B's experiments file in it

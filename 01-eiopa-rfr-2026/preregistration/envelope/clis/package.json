@@ -1,0 +1,9 @@
+{
+  "name": "rt01-envelope-clis",
+  "private": true,
+  "description": "The two CLIs of replicability test 01, at their pinned releases; package-lock.json is written at the build and kept beside this file.",
+  "dependencies": {
+    "@openai/codex": "0.164.0",
+    "@google/gemini-cli": "0.65.0"
+  }
+}

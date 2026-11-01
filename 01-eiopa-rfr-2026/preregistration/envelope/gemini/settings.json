@@ -1,0 +1,24 @@
+{
+  "model": { "name": "gemini-4-argon", "compressionThreshold": 1.0 },
+  "modelConfigs": {
+    "customOverrides": [
+      { "match": { "model": "gemini-4-argon" },
+        "modelConfig": { "generateContentConfig": { "thinkingConfig": { "thinkingLevel": "HIGH" } } } }
+    ],
+    "customAliases": {
+      "chat-compression-default": { "modelConfig": { "model": "gemini-4-argon" } },
+      "loop-detection": { "extends": "base", "modelConfig": { "model": "gemini-4-argon" } },
+      "loop-detection-double-check": { "extends": "base", "modelConfig": { "model": "gemini-4-argon" } }
+    }
+  },
+  "tools": { "exclude": ["google_web_search", "web_fetch", "invoke_agent", "activate_skill"] },
+  "experimental": { "enableAgents": false },
+  "skills": { "enabled": false },
+  "general": { "plan": { "enabled": false } },
+  "privacy": { "usageStatisticsEnabled": false },
+  "security": {
+    "auth": { "selectedType": "gemini-api-key", "enforcedType": "gemini-api-key" },
+    "folderTrust": { "enabled": false },
+    "environmentVariableRedaction": { "enabled": true }
+  }
+}

@@ -1,0 +1,39 @@
+# builder A — the Codex CLI rust-v0.164.0 · $CODEX_HOME/config.toml
+# the builder's settings, then the envelope's own (SPEC §4) — each read in the code at the tag; each changes this run.
+model = "gpt-6-astra"
+model_reasoning_effort = "xhigh"
+web_search = "disabled"
+forced_login_method = "chatgpt"       # the plan's sign-in alone: an API key is refused
+model_context_window = 872000         # the catalog's ceiling for this model; compaction at 90 %, 784,800
+model_catalog_json = "/envelope/config/models-catalog.json"   # the release's own entry; no catalog fetched
+sandbox_mode = "danger-full-access"   # the container is the sandbox: the CLI's own needs user namespaces
+project_doc_max_bytes = 0             # no project document is read: AGENTS.md in /work or above (one in CODEX_HOME is read if present)
+
+[features]
+multi_agent = false
+image_generation = false
+plugins = false                       # no plugin sync from github.com or chatgpt.com
+apps = false                          # no connectors' tools from chatgpt.com
+enable_request_compression = false    # the body crosses as JSON the egress reads
+
+[agents]
+enabled = false                       # one agent: the model's catalog entry selects multi-agent V2 otherwise
+
+[skills]
+include_instructions = false
+
+[skills.bundled]
+enabled = false                       # no bundled skill: several reach the network or start an agent
+
+[analytics]
+enabled = false
+
+[otel]
+metrics_exporter = "none"
+
+[feedback]
+enabled = false
+
+[shell_environment_policy]
+ignore_default_excludes = false       # the agent's commands see no name with KEY, SECRET or TOKEN
+exclude = ["*CERT*"]                  # nor the run CA's variables
