@@ -1,0 +1,37 @@
+E2/corp-data.tsv sha256 40c4806de9cd2b7c152558d6abed0f3bfbc48f25f911c3f7494db77ed58bd11c
+E2/rfr.tsv sha256 f0ecf5573e46ed76e716f4af0f3aebcb40eb9be9832b2ec16335d16a6daa34ad
+E2/ltas.tsv sha256 8e95f7dca07da03734e4379b1564f9bf9de07940c579e6348b6697d661d82337
+E2/corporate-bond-ref-portfolio.tsv sha256 89e973b3ca53893b448415ee3299503ccb26cd2ab96b8fd1c93b0017838f4dd4
+E3/corp-data.tsv sha256 8425904e1fa937091f8659af35bfdc08c9b0a798ee34ed92886bf01326d9f4ce
+E3/rfr.tsv sha256 239ac180c896c55504be3938fd97ac520fa1ee51fb48a4164e66d047179994a3
+E3/ltas.tsv sha256 634e79d968fe619e396e5f3b370f4d04a05b8aa4155af8d8f17edb29bc512b1b
+E3/corporate-bond-ref-portfolio.tsv sha256 4876793e14a4ad1f8e75f66e9a94752e1e7dedd7e97b005654bb1be5e7737845
+build-a1 outputs.json sha256 dbdd50147b14eed0427d0280ee3eec3eb1361973913b55911b144e41bda2bb5e
+build-b1 outputs.json sha256 7c1879fed0f38c7477f4a0af465186b84eacdd8332234f7749a7f415813424f3
+== C1 — a build's returned output minus the reading's
+build-a1 − as-supplied       s_corp +5.390e-05 · rc_corp +2.611e-05 · s +4.121e-05 · rc +1.996e-05 · rcs +2.124e-05
+build-a1 − rounded           s_corp +3.132e-05 · rc_corp +1.567e-05 · s +2.395e-05 · rc +1.198e-05 · rcs +1.196e-05
+build-a1 − as-supplied+proxy s_corp -1.388e-17 · rc_corp -3.469e-18 · s -1.041e-17 · rc -2.602e-18 · rcs -7.806e-18
+build-a1 − rounded+proxy     s_corp -2.259e-05 · rc_corp -1.045e-05 · s -1.727e-05 · rc -7.985e-06 · rcs -9.281e-06
+build-b1 − as-supplied       s_corp +1.527e-16 · rc_corp +2.498e-16 · s +1.162e-16 · rc +1.908e-16 · rcs -7.459e-17
+build-b1 − rounded           s_corp -2.258e-05 · rc_corp -1.044e-05 · s -1.726e-05 · rc -7.982e-06 · rcs -9.279e-06
+build-b1 − as-supplied+proxy s_corp -5.390e-05 · rc_corp -2.611e-05 · s -4.121e-05 · rc -1.996e-05 · rcs -2.124e-05
+build-b1 − rounded+proxy     s_corp -7.649e-05 · rc_corp -3.656e-05 · s -5.847e-05 · rc -2.795e-05 · rcs -3.052e-05
+== C1 — one reading minus another, the sums with build-b1's weights and government terms
+rounded           − as-supplied  s_corp +2.258e-05 · rc_corp +1.044e-05 · s +1.726e-05 · rc +7.982e-06 · rcs +9.279e-06
+as-supplied+proxy − as-supplied  s_corp +5.390e-05 · rc_corp +2.611e-05 · s +4.121e-05 · rc +1.996e-05 · rcs +2.124e-05
+rounded+proxy     − as-supplied  s_corp +7.649e-05 · rc_corp +3.656e-05 · s +5.847e-05 · rc +2.795e-05 · rcs +3.052e-05
+== B1 — a build's returned output minus the reading's
+build-a1 − as-supplied       s_corp +5.898e-17 · rc_corp +1.145e-16 · s +3.469e-17 · rc +6.982e-17 · rcs -3.556e-17
+build-a1 − rounded           s_corp -2.782e-05 · rc_corp -1.363e-05 · s -1.700e-05 · rc -8.327e-06 · rcs -8.668e-06
+build-b1 − as-supplied       s_corp -5.898e-17 · rc_corp +6.245e-17 · s -3.469e-17 · rc +3.816e-17 · rcs -7.286e-17
+build-b1 − rounded           s_corp -2.782e-05 · rc_corp -1.363e-05 · s -1.700e-05 · rc -8.327e-06 · rcs -8.668e-06
+== B1 — one reading minus another, the sums with build-b1's weights and government terms
+rounded           − as-supplied  s_corp +2.782e-05 · rc_corp +1.363e-05 · s +1.700e-05 · rc +8.327e-06 · rcs +8.668e-06
+== B2 — a build's returned output minus the reading's
+build-a1 − as-supplied       s_corp +2.429e-17 · rc_corp -3.469e-18 · s +8.674e-18 · rc -8.674e-19 · rcs +9.541e-18
+build-a1 − rounded           s_corp -3.602e-05 · rc_corp -1.718e-05 · s -1.417e-05 · rc -6.759e-06 · rcs -7.409e-06
+build-b1 − as-supplied       s_corp +3.816e-17 · rc_corp +4.163e-17 · s +1.735e-17 · rc +1.648e-17 · rcs +1.735e-18
+build-b1 − rounded           s_corp -3.602e-05 · rc_corp -1.718e-05 · s -1.417e-05 · rc -6.759e-06 · rcs -7.409e-06
+== B2 — one reading minus another, the sums with build-b1's weights and government terms
+rounded           − as-supplied  s_corp +3.602e-05 · rc_corp +1.718e-05 · s +1.417e-05 · rc +6.759e-06 · rcs +7.409e-06

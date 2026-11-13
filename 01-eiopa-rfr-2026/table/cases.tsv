@@ -1,0 +1,28 @@
+# replicability test 01 - the pass-or-fail table (the preregistration, sections 5 and 6)
+# tool: compare.py sha256 d36b8649aadaff8958e0baff6164e5717f401e6c68b55144a2a92fe3c9d8f498
+# command: compare.py table <workbooks> <manifest> <out> --build build-a1 <build-a1 returned> --build build-b1 <build-b1 returned> --isolated build-a1 <build-a1 isolated> --isolated build-b1 <build-b1 isolated> — every file and folder shown by its role, the files named by their sha256 below
+# workbooks: E1 c1ce32a3f76cf50f4d3de267292ee5af355fea9d31b60c4d2a01a98dff777dc4 · E2 5302c91ba000568fd99adb0c98a08af9cb3089b412f0200a77c5488fb85cfe07 · E3 67bf3478293b810691460569cf79751cf4c90e57a2773cbbd4da9f92b2486b81 — each equal to its pin
+# manifest: sha256 9326a27c65613fe0187c1d21bd9242999c242b5ee0720923e7b5357f5750ed55 — the frozen manifest; ranges held to its digests: 17 (14 outputs, 3 maturities)
+# build-a1 returned: sha256 dbdd50147b14eed0427d0280ee3eec3eb1361973913b55911b144e41bda2bb5e · form: conforming · numbers 535 of 535
+# build-a1 isolated: sha256 25665f8490d7a4e006a295d4090a52c3ce3fd4e81eb25a39efbee7ef8139e4fd · form: conforming · numbers 307 of 307
+# build-b1 returned: sha256 7c1879fed0f38c7477f4a0af465186b84eacdd8332234f7749a7f415813424f3 · form: conforming · numbers 535 of 535
+# build-b1 isolated: sha256 4b76eedb786a5e90f4146f582a150b526325cfcbb1b18679f6f060cd3406f4b6 · form: conforming · numbers 307 of 307
+# Source: EIOPA - European Insurance and Occupational Pensions Authority (the oracle: the workbooks' cached outputs, read and compared here, not reproduced)
+# a case passes for a build when every one of its declared outputs passes (section 5)
+build	kind	case	outputs	passed	failed	result
+build-a1	returned	A1	201	201	0	PASS
+build-a1	returned	A2	153	153	0	PASS
+build-a1	returned	A3	154	154	0	PASS
+build-a1	returned	B1	9	9	0	PASS
+build-a1	returned	B2	9	9	0	PASS
+build-a1	returned	C1	9	5	4	FAIL
+build-a1	isolated	A2	153	153	0	PASS
+build-a1	isolated	A3	154	154	0	PASS
+build-b1	returned	A1	201	201	0	PASS
+build-b1	returned	A2	153	153	0	PASS
+build-b1	returned	A3	154	154	0	PASS
+build-b1	returned	B1	9	9	0	PASS
+build-b1	returned	B2	9	9	0	PASS
+build-b1	returned	C1	9	8	1	FAIL
+build-b1	isolated	A2	153	153	0	PASS
+build-b1	isolated	A3	154	154	0	PASS
