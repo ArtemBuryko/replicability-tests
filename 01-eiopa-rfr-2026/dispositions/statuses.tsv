@@ -1,0 +1,12 @@
+# replicability test 01 - the statuses of the divergences after the independent review and the dispositions (the preregistration, sections 6, 8 and 9)
+# divergences: table/divergences.tsv sha256 33d965c0a10aa439c4daf489713e403b45cad4f8694a8f91049c542fd407cd98 — one row here for each of its rows, by its id
+# log: divergences.md sha256 80860008e81d0343a053aa4bd560ee1d9b0dd52a1f22761b0f736c10554e99e9 — the column «before» is the status it gives the id, frozen with the third commit and not rewritten
+# grounds: dispositions/DISPOSITIONS.md — the row named in the column «disposition»
+# status: one of T, O, C, B, P, U (section 6) · passage: for a T, by section and paragraph
+# void builds: none
+id	status	passage	before	disposition
+build-a1/returned/C1.s_corp	T	G.5.5 with G.5.3	B	D1
+build-a1/returned/C1.rc_corp	T	G.5.5 with G.5.3	B	D2
+build-a1/returned/C1.s	T	G.5.5 with G.5.3	B	D3
+build-a1/returned/C1.rc	T	G.5.5 with G.5.3	B	D4
+build-b1/returned/C1.rcs	T	G.1.2	T	D5
