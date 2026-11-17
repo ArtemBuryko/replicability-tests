@@ -1,0 +1,19 @@
+# Who did what — AI use and roles in test 01
+
+Added on 17 November 2026, in this repository's sixth commit, after the record of test 01 had closed. That record is the five commits before this one, each under its own timestamp token; the fifth is `44fa2287fec1e29ac3a2d7ddb3c95025f173ebf8`. This commit adds this page and changes no other file. The page is not part of the test's record: it was not preregistered, the test's review did not read it, and it carries no timestamp token. It says in one place what the pages of the record say in several, and what they leave unsaid — which parts AI agents drafted, and what the "second party" is.
+
+How the work was divided
+
+- An AI agent (Anthropic's Claude models) worked in my sessions and under my direction: it drafted the test protocol, wrote the comparison tools, produced the first analysis of the deviations, and drafted the dispositions and the public texts. For the test itself the sessions were set to claude-opus-5-5 and, from 10 November, to either it or claude-fable-5-2. The repository uses "the author" for me — the person responsible for the work, the one recorded as the author of its commits. What it marks as "the author's statement" is my statement; part of its grounds are working records that are not public.
+- Two other AI agents built the calculations blind, one run each: OpenAI's gpt-6-astra and Google's gemini-4-argon, each through its vendor's command-line tool. They received the documentation and the input data; the published results, the intermediate values and the workbooks' formulas were withheld.
+- A model of a fourth family reviewed the analysis once: xAI's Grok.
+- A second party checked the tools: an AI of the GPT family — the family of one of the builders —, each pass a session with no memory of the others. Before the first freeze it read the protocol's draft and the tools that freeze rests on, in 7 passes; then the comparison tool and its tests, in 21 passes. The comparison tool carries its sign-off — the last four passes, on unchanged code, within limits the note states. Its tests carry none: every revision a pass read came back without one, and the revision kept in the record was read by no second party. The 21 passes are in the note as a table; the checker's family, the 7 earlier passes and the models my sessions were set to are my statement, from working records.
+- I decided what to test and under which rules; downloaded the publisher's files; started both builds; carried every review pack out and back; froze each of the five stages myself; ran the final one-command check from a fresh copy; and decided what was accepted, revised or left open.
+
+Decisions a person made, and on what grounds
+- Accepted: the protocol, frozen before any build. Both builds as they came back — one without its notes and with code changed after its outputs — went into the comparison as returned: neither agent was run a second time, and no second run was put in their place. (The returned code was later run again offline, as the note records.) The review's finding on four deviations, once it had been checked against the files.
+- Revised: four attributions, from "the build" to "the text"; seven statements the review judged overstated; six points of wording of my own.
+- Stopped: after 21 passes every revision of the comparison tool's tests that a pass had read had come back without a sign-off, and the revision made after the last pass has been read by no second party. I closed that loop; the gap is stated in the note.
+- Left open: why one build's run ended when it did; two observations on the published workbooks' own stored values; the review model's training cut-off, which it did not state.
+
+What no person has done yet: no actuary has confirmed the two attributions. I am a data and AI architect, not an actuary.
